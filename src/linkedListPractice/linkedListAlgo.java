@@ -60,30 +60,66 @@ public class linkedListAlgo {
     public static void delNodeByDescIndex(Node l1 , int index){
         Node fast = l1;
         int i = 1;
-        while(fast != null && i < index){
-            fast.setNext(fast.getNext().getNext());
+        while(fast!=null && i < index ){
+            fast = fast.getNext();
             i++;
         }
+        if(fast == null ){return; }
+
+        Node slow = l1;
+        Node pre = null;
+        while(fast.getNext()!=null){
+            fast = fast.getNext();
+            pre = slow;
+            slow = slow.getNext();
+        }
+        if(pre == null ){
+            l1 = l1.getNext();
+        }else{
+            pre.setNext(pre.getNext().getNext());
+        }
+
     }
 
     /*
     求链表的中间结点
      */
+    public static Node searchMidNode(Node l1){
+        Node fast = l1;
+        Node slow = l1;
+        while(fast != null && fast.getNext() != null ){
+            fast = fast.getNext().getNext();
+            slow = slow.getNext();
+        }
+            return slow;
+    }
 
     public static void main(String[] args) {
         CustomLinkedListAlgo custom = new CustomLinkedList();
         custom.insertToTail(1);
         custom.insertToTail(3);
         custom.insertToTail(5);
+        custom.insertToTail(7);
+        custom.insertToTail(9);
+        custom.insertToTail(11);
+        custom.insertToTail(13);
+        custom.insertToTail(15);
 //        Node node = custom.findByIndex(0);
 //        Node inversionNode = inversionList(node);
 //        custom.printAll(inversionNode);
-        CustomLinkedListAlgo custom2 = new CustomLinkedList();
-        custom2.insertToTail(2);
-        custom2.insertToTail(4);
-        custom2.insertToTail(6);
+//        CustomLinkedListAlgo custom2 = new CustomLinkedList();
+//        custom2.insertToTail(2);
+//        custom2.insertToTail(4);
+//        custom2.insertToTail(6);
 
-        Node node = margeLinkedList(custom.findByIndex(0), custom2.findByIndex(0));
-        custom.printAll(node);
+//        Node node = margeLinkedList(custom.findByIndex(0), custom2.findByIndex(0));
+//        custom.printAll(node);
+
+        //此处数位链表长度为7是因为该方法没有写在自定义链表类中,无法修改length长度导致.此处仅作为测试方法
+//        delNodeByDescIndex(custom.findByIndex(0),2);
+//        custom.printAll();
+
+        Node node = searchMidNode(custom.findByIndex(0));
+        System.out.println(node.getElement());
     }
 }
