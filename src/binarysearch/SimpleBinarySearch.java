@@ -1,6 +1,8 @@
 package binarysearch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,7 +13,6 @@ import java.util.Map;
  * @Version 1.0
  */
 public class SimpleBinarySearch {
-
     public static int binarySearch(int[] arr, int n, int value) {
         int low = 0;
         int high = n - 1;
@@ -34,12 +35,54 @@ public class SimpleBinarySearch {
     public static void main(String[] args) {
         int[] arr = {1,3,3,5,7,9, 11, 13};
 //        System.out.println(binarySearch(arr, arr.length, 11));//二分查找
-//        System.out.println(findFirstMatchElementIndex(arr, arr.length, 3)); //查找第一个值匹配的元素下标
+//        System.out.println(findFirstMatchElementIndex(arr, arr.length, 15)); //查找第一个值匹配的元素下标
 //        System.out.println(findLastMatchElementIndex(arr, arr.length, 3)); //查找最后一个值匹配的元素下标
-//        System.out.println(findGatherThanOrEqualsElementValue(arr, arr.length, 6));
-        System.out.println(findLessThanOrEqualsElementValue(arr, arr.length, 6));
+//        System.out.println(findGatherThanOrEqualsElementValue(arr, arr.length, 6)); //查找第一个大于等于匹配值的元素下标
+//        System.out.println(findLessThanOrEqualsElementValue(arr, arr.length, 6));//查找最后一个小于等于匹配值的元素下标
+//        System.out.println(totalMethod(3,null));
+        //  获取一个数据的所有不重复子集(幂集)
+//          int[] temp = {1,2,3};
+//        List<List<Integer>> subsets = subsets(temp);
+//        for (List<Integer> subset : subsets) {
+//            System.out.println(subset.toString());
+//        }
+
+
     }
 
+
+    // 获取一个数据的所有不重复子集(幂集)
+    public static  List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        List<Integer> temp = new ArrayList<Integer>();
+        dfs(res, temp, nums, 0);
+        return res;
+    }
+    private static void dfs(List<List<Integer>> res, List<Integer> temp, int[] nums, int j) {
+        res.add(new ArrayList<Integer>(temp));
+        for(int i = j; i < nums.length; i++) {
+            temp.add(nums[i]);  //① 加入 nums[i]
+            dfs(res, temp, nums, i + 1);  //② 递归
+            temp.remove(temp.size() - 1);  //③ 移除 nums[i]
+        }
+    }
+
+    //有n个台阶, 每次可以走1个 或者2个, 一共有多少个走法 n为正整数
+    public static  int totalMethod(int n,Map<Integer,Integer> hasSolvedMap) {
+        if(hasSolvedMap == null ){
+//            hasSolvedMap = Maps.newHashMap();
+            hasSolvedMap = new HashMap<>();
+        }
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+        if (hasSolvedMap.containsKey(n)) {
+            return hasSolvedMap.get(n);
+        }
+
+        int ret = totalMethod(n-1,hasSolvedMap) + totalMethod(n-2,hasSolvedMap);
+        hasSolvedMap.put(n, ret);
+        return ret;
+    }
     //
 
     /**
