@@ -26,7 +26,6 @@ public class SimpleBinarySearch {
             } else {
                 low = mid + 1;
             }
-
         }
         return -1;
     }
@@ -46,8 +45,6 @@ public class SimpleBinarySearch {
 //        for (List<Integer> subset : subsets) {
 //            System.out.println(subset.toString());
 //        }
-
-
     }
 
 
@@ -142,10 +139,11 @@ public class SimpleBinarySearch {
     }
 
     /**
-     * findGatherThanOrEqualsElementValue
-     * @param arr
-     * @param n
-     * @param value
+     * 查找第一个大于等于匹配元素的下标
+     *
+     * @param arr   给定数组
+     * @param n     数组长度
+     * @param value 查询值
      * @return
      */
     public static int findGatherThanOrEqualsElementValue(int [] arr , int n , int value){
@@ -165,7 +163,14 @@ public class SimpleBinarySearch {
         }
         return -1;
     }
-    //findLessThanOrEqualsElementValue
+    /**
+     * 查找最后一个小于等于匹配元素的下标
+     *
+     * @param arr   给定数组
+     * @param n     数组长度
+     * @param value 查询值
+     * @return
+     */
     public static int findLessThanOrEqualsElementValue(int[] arr , int n , int value){
         int low = 0;
         int high = n - 1;
